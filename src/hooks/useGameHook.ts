@@ -23,7 +23,7 @@ const useGameHook = (): UseGameHookReturnType => {
 
   const gameOver = useMemo(
     () => (boardIsCreated ? gameIsOver(board) : false),
-    [board]
+    [board, boardIsCreated]
   );
 
   const createGame = useCallback((boardSize: number) => {
@@ -37,7 +37,7 @@ const useGameHook = (): UseGameHookReturnType => {
       const newBoard = getBoardWithCardMarked(cardId, board);
       setBoard(newBoard);
     },
-    [board]
+    [board, boardIsCreated]
   );
 
   return {
