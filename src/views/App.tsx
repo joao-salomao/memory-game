@@ -1,14 +1,10 @@
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useState } from "react";
 import { useGameHook } from "hooks/useGameHook";
 
 const App = (): ReactElement => {
-  const [boardSize, setBoardSize] = useState(6);
+  const [boardSize, setBoardSize] = useState(2);
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
-
-  useEffect(() => {
-    setTimeout(() => createGame(6), 500);
-  }, []);
 
   return (
     <div>
@@ -64,14 +60,14 @@ const App = (): ReactElement => {
                 width: "150px",
                 margin: "3px",
                 cursor: "pointer",
-                transition: "background-color 1s",
+                transition: "background-color .500s",
                 backgroundColor: card.isFound
                   ? "blue"
                   : card.isMarked
                   ? "red"
                   : "gray",
               }}
-              onClick={() => markCard(card.id)}
+              onClick={() => markCard(card)}
             >
               <p>ID: {card.id}</p>
               <p>Group ID: {card.groupId}</p>

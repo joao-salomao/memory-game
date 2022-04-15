@@ -1,20 +1,22 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import {
   Board,
   Card,
-  createBoard,
+  markCard,
   gameIsOver,
-  markCard as getBoardWithCardMarked,
+  createBoard,
+  setCardsFromGroupAsFounded,
+  allCardsFromTheGroupAreMarked,
+  unMarkAllNotFoundAndMarkedCards,
+  hasCardsFromAnotherGroupMarkedAndNotFound,
 } from "core";
 
-type MarkCardFunction = (cardId: Card["id"]) => void;
-type CreateGameFunction = (boardSize: number) => void;
 type UseGameHookReturnType = {
   board: Board;
   boardIsCreated: boolean;
   gameOver: boolean;
-  markCard: MarkCardFunction;
-  createGame: CreateGameFunction;
+  markCard: (card: Card) => void;
+  createGame: (boardSize: number) => void;
 };
 
 const useGameHook = (): UseGameHookReturnType => {
@@ -26,26 +28,51 @@ const useGameHook = (): UseGameHookReturnType => {
     [board, boardIsCreated]
   );
 
-  const createGame = useCallback((boardSize: number) => {
+  const createGameAction = useCallback((boardSize: number) => {
     setBoard(createBoard(boardSize));
     setBoardIsCreated(true);
   }, []);
 
-  const markCard = useCallback(
-    (cardId: Card["id"]) => {
+  // 1. If the board is not created, do nothing.
+  // 2. Mark card.
+  // 3. If a card from another group is marked and not found, then set the cards as not marked.
+  // 4. If a card from the same group is marked, then set the cards as founded.
+  const markCardAction = useCallback(
+    (card: Card) => {
       if (!boardIsCreated) return;
-      const newBoard = getBoardWithCardMarked(cardId, board);
-      setBoard(newBoard);
+
+      try {
+        const newBoard = markCard(card.id, board);
+        setBoard(newBoard);
+
+        if (hasCardsFromAnotherGroupMarkedAndNotFound(card.groupId, newBoard)) {
+          setTimeout(() => {
+            setBoard(unMarkAllNotFoundAndMarkedCards(newBoard));
+          }, 500);
+        }
+
+        if (allCardsFromTheGroupAreMarked(card.groupId, newBoard)) {
+          setTimeout(() => {
+            setBoard(setCardsFromGroupAsFounded(card.groupId, newBoard));
+          }, 500);
+        }
+      } catch (error) {
+        // TODO
+      }
     },
     [board, boardIsCreated]
   );
+
+  useEffect(() => {
+    console.table(board);
+  }, [board]);
 
   return {
     board,
     gameOver,
     boardIsCreated,
-    markCard,
-    createGame,
+    markCard: markCardAction,
+    createGame: createGameAction,
   };
 };
 
