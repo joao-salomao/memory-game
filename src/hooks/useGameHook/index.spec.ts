@@ -1,5 +1,5 @@
 import { useGameHook } from ".";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 
 describe("Use Game Hook", () => {
   it("should start with the board not created", () => {
@@ -10,5 +10,15 @@ describe("Use Game Hook", () => {
   test("the game should not be over if the board is not created", () => {
     const { result } = renderHook(() => useGameHook());
     expect(result.current.gameOver).toBeFalsy();
+  });
+
+  it("should create the board on call createGame", () => {
+    const { result } = renderHook(() => useGameHook());
+
+    act(() => {
+      result.current.createGame(2);
+    });
+
+    expect(result.current.board.length).toBeGreaterThan(0);
   });
 });
