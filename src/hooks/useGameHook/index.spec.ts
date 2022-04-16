@@ -1,5 +1,6 @@
 import { useGameHook } from ".";
-import * as core from "core";
+import { Card } from "types";
+import * as cardMarkerModule from "core/cardMarker";
 import { renderHook, act } from "@testing-library/react-hooks";
 
 describe("Use Game Hook", () => {
@@ -25,14 +26,14 @@ describe("Use Game Hook", () => {
 
   it("should not mark card when the board is not created", () => {
     const markCardMock = jest
-      .spyOn(core, "markCard")
+      .spyOn(cardMarkerModule, "markCard")
       .mockImplementation(jest.fn());
 
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
       result.current.createGame(2);
-      const card = result.current.board.at(0) as core.Card;
+      const card = result.current.board.at(0) as Card;
       result.current.markCard(card);
     });
 

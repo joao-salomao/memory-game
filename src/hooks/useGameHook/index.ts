@@ -1,15 +1,13 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
+import { createBoard } from "core/boardCreator";
+import { markCard, setCardsFromGroupAsFounded } from "core/cardMarker";
+import { gameIsOver } from "core/gameOverChecker";
 import {
-  Board,
-  Card,
-  markCard,
-  gameIsOver,
-  createBoard,
-  setCardsFromGroupAsFounded,
   allCardsFromTheGroupAreMarked,
-  unMarkAllNotFoundAndMarkedCards,
   hasCardsFromAnotherGroupMarkedAndNotFound,
-} from "core";
+} from "core/cardsChecker";
+import { unMarkAllNotFoundAndMarkedCards } from "core/cardUnMarker";
+import { Board, Card } from "types";
 
 type UseGameHookReturnType = {
   board: Board;
@@ -42,7 +40,7 @@ const useGameHook = (): UseGameHookReturnType => {
       if (!boardIsCreated) return;
 
       try {
-        const newBoard = markCard(card.id, board);
+        const newBoard = markCard(card, board);
         setBoard(newBoard);
 
         if (hasCardsFromAnotherGroupMarkedAndNotFound(card.groupId, newBoard)) {
