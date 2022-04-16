@@ -1,4 +1,4 @@
-// Game types
+// Data structures
 export type Card = {
   id: number;
   groupId: number;
@@ -7,7 +7,7 @@ export type Card = {
 };
 export type Board = Array<Card>;
 
-// Handlers
+// Functions
 export type BoardCreator = (size: number) => Board;
 export type CardsCreator = (amountOfGroups: number) => Board;
 export type CardMarker = (cardToMark: Card, board: Board) => Board;
