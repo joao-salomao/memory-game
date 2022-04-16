@@ -63,10 +63,6 @@ const useGameHook = (): UseGameHookReturnType => {
     [board, boardIsCreated]
   );
 
-  useEffect(() => {
-    console.table(board);
-  }, [board]);
-
   return {
     board,
     gameOver,
