@@ -1,4 +1,5 @@
 import { useGameHook } from ".";
+import * as core from "core";
 import { renderHook, act } from "@testing-library/react-hooks";
 
 describe("Use Game Hook", () => {
@@ -20,5 +21,21 @@ describe("Use Game Hook", () => {
     });
 
     expect(result.current.board.length).toBeGreaterThan(0);
+  });
+
+  it("should not mark card when the board is not created", () => {
+    const markCardMock = jest
+      .spyOn(core, "markCard")
+      .mockImplementation(jest.fn());
+
+    const { result } = renderHook(() => useGameHook());
+
+    act(() => {
+      result.current.createGame(2);
+      const card = result.current.board.at(0) as core.Card;
+      result.current.markCard(card);
+    });
+
+    expect(markCardMock).not.toHaveBeenCalled();
   });
 });
