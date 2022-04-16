@@ -18,3 +18,4 @@ export type GameOverChecker = (board: Board) => boolean;
 export class DomainError extends Error {}
 export class CardAlreadyMarkedError extends DomainError {}
 export class InvalidBoardSizeError extends DomainError {}
+export class InvalidAmountOfGroupsError extends DomainError {}

@@ -1,4 +1,5 @@
 import { createCards } from ".";
+import { InvalidAmountOfGroupsError } from "types";
 
 describe("Cards Creator", () => {
   it("should create the board with right amount of cards", () => {
@@ -26,5 +27,18 @@ describe("Cards Creator", () => {
     ];
 
     expect(board).toEqual(expectedBoard);
+  });
+
+  it("should throw an error when the amount of groups is not a integer", () => {
+    expect(() => createCards(2.3)).toThrow(InvalidAmountOfGroupsError);
+    expect(() => createCards(4.5)).toThrow(InvalidAmountOfGroupsError);
+    expect(() => createCards(1.00000001)).toThrow(InvalidAmountOfGroupsError);
+  });
+
+  it("should throw an error when the amount of groups is less than one", () => {
+    expect(() => createCards(0)).toThrow(InvalidAmountOfGroupsError);
+    expect(() => createCards(-1)).toThrow(InvalidAmountOfGroupsError);
+    expect(() => createCards(-23)).toThrow(InvalidAmountOfGroupsError);
+    expect(() => createCards(-300)).toThrow(InvalidAmountOfGroupsError);
   });
 });
