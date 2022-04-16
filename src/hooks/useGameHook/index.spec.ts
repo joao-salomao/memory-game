@@ -1,5 +1,4 @@
 import { useGameHook } from ".";
-import { Card } from "types";
 import * as cardMarkerModule from "core/cardMarker";
 import { renderHook, act } from "@testing-library/react-hooks";
 
@@ -33,7 +32,7 @@ describe("Use Game Hook", () => {
 
     act(() => {
       result.current.createGame(2);
-      const card = result.current.board.at(0) as Card;
+      const card = result.current.board[0];
       result.current.markCard(card);
     });
 
