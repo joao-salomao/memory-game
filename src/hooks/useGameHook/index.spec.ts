@@ -13,7 +13,7 @@ describe("Use Game Hook", () => {
     expect(result.current.gameOver).toBeFalsy();
   });
 
-  it("should create the board on call createGame", () => {
+  it('should create the board and set the flag "boardIsCreated" to "true" on call createGame', () => {
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
@@ -21,7 +21,9 @@ describe("Use Game Hook", () => {
     });
 
     expect(result.current.board.length).toBeGreaterThan(0);
+    expect(result.current.boardIsCreated).toBeTruthy();
   });
+
 
   it("should not mark card when the board is not created", () => {
     const markCardMock = jest
