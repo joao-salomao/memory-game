@@ -1,4 +1,4 @@
-import { Board } from "types";
+import { Board } from "lib/types";
 import { unMarkAllNotFoundAndMarkedCards } from ".";
 
 describe("Un mark All Not Found And Marked Cards", () => {

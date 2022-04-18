@@ -1,13 +1,13 @@
 import { useState, useMemo, useCallback } from "react";
-import { createBoard } from "core/boardCreator";
-import { markCard, setCardsFromGroupAsFounded } from "core/cardMarker";
-import { gameIsOver } from "core/gameOverChecker";
+import { createBoard } from "lib/core/boardCreator";
+import { markCard, setCardsFromGroupAsFounded } from "lib/core/cardMarker";
+import { gameIsOver } from "lib/core/gameOverChecker";
 import {
   allCardsFromTheGroupAreMarked,
   hasCardsFromAnotherGroupMarkedAndNotFound,
-} from "core/cardsChecker";
-import { unMarkAllNotFoundAndMarkedCards } from "core/cardUnMarker";
-import { Board, Card, Value } from "types";
+} from "lib/core/cardsChecker";
+import { unMarkAllNotFoundAndMarkedCards } from "lib/core/cardUnMarker";
+import { Board, Card, Value } from "lib/types";
 
 type UseGameHookReturnType = {
   board: Board;

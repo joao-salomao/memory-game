@@ -1,37 +1,18 @@
-import { ReactElement, useState } from "react";
-import { useGameHook } from "hooks/useGameHook";
+import { ReactElement, useState, useEffect } from "react";
+import { useGameHook } from "lib/hooks/useGameHook";
+import { COLORS } from "lib/constants";
 
 const App = (): ReactElement => {
   const [boardSize, setBoardSize] = useState(2);
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
+  useEffect(() => {
+    createGame(COLORS);
+  }, []);
+
   return (
     <div>
-      <section>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: "10px",
-          }}
-        >
-          <h1>Memory Game</h1>
-          <div>
-            <label>
-              <b>Tamanho do Board</b>
-            </label>
-            <br />
-            <input
-              value={boardSize}
-              onChange={(e) => setBoardSize(Number(e.target.value))}
-            />
-            <button onClick={() => createGame(boardSize)}>Criar jogo</button>
-          </div>
-        </div>
-      </section>
       <section
         style={{
           display: "flex",
@@ -41,7 +22,12 @@ const App = (): ReactElement => {
           marginBottom: "10px",
         }}
       >
-        {gameOver && <h2>Game Over!!!</h2>}
+        {gameOver && (
+          <>
+            <h2>Game Over!!!</h2>
+            <button onClick={() => createGame(COLORS)}>Jogar Novamente</button>
+          </>
+        )}
       </section>
       <section
         style={{
@@ -61,11 +47,8 @@ const App = (): ReactElement => {
                 margin: "3px",
                 cursor: "pointer",
                 transition: "background-color .500s",
-                backgroundColor: card.isFound
-                  ? "blue"
-                  : card.isMarked
-                  ? "red"
-                  : "gray",
+                backgroundColor:
+                  card.isFound || card.isMarked ? card.value : "gray",
               }}
               onClick={() => markCard(card)}
             >

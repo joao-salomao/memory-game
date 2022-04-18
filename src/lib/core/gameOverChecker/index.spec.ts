@@ -1,5 +1,5 @@
-import { Board } from "types";
-import { gameIsOver } from "core/gameOverChecker";
+import { Board } from "lib/types";
+import { gameIsOver } from "lib/core/gameOverChecker";
 
 describe("Game Over Checker", () => {
   it('should return "true" when the game is over', () => {

@@ -1,4 +1,4 @@
-import { Board, Card } from "types";
+import { Board, Card } from "lib/types";
 
 export const hasCardsFromAnotherGroupMarkedAndNotFound = (
   groupId: Card["groupId"],

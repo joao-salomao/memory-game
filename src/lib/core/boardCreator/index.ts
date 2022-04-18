@@ -1,4 +1,4 @@
-import { Board, BoardCreator, Value, InvalidValuesError } from "types";
+import { Board, BoardCreator, Value, InvalidValuesError } from "lib/types";
 
 export const createBoard: BoardCreator = (values: Array<Value>): Board => {
   if (values.length === 0)

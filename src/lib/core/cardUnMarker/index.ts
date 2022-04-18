@@ -1,4 +1,4 @@
-import { Board } from "types";
+import { Board } from "lib/types";
 
 export const unMarkAllNotFoundAndMarkedCards = (board: Board): Board => {
   return board.map((card) => {

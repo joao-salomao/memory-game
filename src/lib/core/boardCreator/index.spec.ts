@@ -1,5 +1,5 @@
 import { createBoard } from ".";
-import { InvalidValuesError } from "types";
+import { InvalidValuesError } from "lib/types";
 
 describe("Board Creator", () => {
   it("should throw an error when the collection is empty", () => {

@@ -2,7 +2,7 @@ import {
   allCardsFromTheGroupAreMarked,
   hasCardsFromAnotherGroupMarkedAndNotFound,
 } from ".";
-import { Board } from "types";
+import { Board } from "lib/types";
 
 describe("Has cards from another group marked and not found checker", () => {
   it('should return "false" when there is not cards from another group marked and not found checker', () => {

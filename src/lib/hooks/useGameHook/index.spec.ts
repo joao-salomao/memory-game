@@ -1,6 +1,6 @@
 import { useGameHook } from ".";
-import * as cardMarkerModule from "core/cardMarker";
-import * as gameOverModule from "core/gameOverChecker";
+import * as cardMarkerModule from "lib/core/cardMarker";
+import * as gameOverModule from "lib/core/gameOverChecker";
 import { renderHook, act } from "@testing-library/react-hooks";
 
 describe("Use Game Hook", () => {

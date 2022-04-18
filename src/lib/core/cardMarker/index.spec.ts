@@ -1,5 +1,5 @@
 import { markCard, setCardsFromGroupAsFounded } from ".";
-import { Board, CardAlreadyMarkedError } from "types";
+import { Board, CardAlreadyMarkedError } from "lib/types";
 
 describe("Card Marker", () => {
   it('should set the property "isMarked" of the card to true', () => {

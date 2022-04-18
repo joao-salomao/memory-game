@@ -1,4 +1,4 @@
-import { CardMarker, Card, Board, CardAlreadyMarkedError } from "types";
+import { CardMarker, Card, Board, CardAlreadyMarkedError } from "lib/types";
 
 export const markCard: CardMarker = (cardToMark: Card, board: Board): Board => {
   if (cardToMark.isMarked) {
