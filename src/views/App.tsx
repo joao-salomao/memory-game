@@ -3,7 +3,6 @@ import { useGameHook } from "lib/hooks/useGameHook";
 import { COLORS } from "lib/constants";
 
 const App = (): ReactElement => {
-  const [boardSize, setBoardSize] = useState(2);
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
