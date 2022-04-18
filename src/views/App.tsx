@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useGameHook } from "lib/hooks/useGameHook";
 import { COLORS } from "lib/constants";
 
