@@ -1,19 +1,21 @@
 import { createBoard } from ".";
-import * as cardsCreatorModule from "core/cardsCreator";
-import * as amountOfCardsGroupCalculatorModule from "core/amountOfCardsGroupCalculator";
+import { InvalidValuesError } from "types";
 
 describe("Board Creator", () => {
-  it("should create the board", () => {
-    const amountOfCardsGroupCalculatorSpy = jest.spyOn(
-      amountOfCardsGroupCalculatorModule,
-      "calculateAmountOfCardsGroup"
-    );
-    const createCardsSpy = jest.spyOn(cardsCreatorModule, "createCards");
+  it("should throw an error when the collection is empty", () => {
+    expect(() => createBoard([])).toThrow(InvalidValuesError);
+  });
 
-    const board = createBoard(2);
+  it("should create the board correctly", () => {
+    const result = createBoard(["A", "B"]);
 
-    expect(amountOfCardsGroupCalculatorSpy).toBeCalledWith(2);
-    expect(createCardsSpy).toBeCalledWith(4);
-    expect(board.length).toBeGreaterThan(0);
+    const expectedBoard = [
+      { id: 1, groupId: 1, isFound: false, isMarked: false, value: "A" },
+      { id: 2, groupId: 1, isFound: false, isMarked: false, value: "A" },
+      { id: 3, groupId: 2, isFound: false, isMarked: false, value: "B" },
+      { id: 4, groupId: 2, isFound: false, isMarked: false, value: "B" },
+    ];
+
+    expect(expectedBoard).toEqual(result);
   });
 });

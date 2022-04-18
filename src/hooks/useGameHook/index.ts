@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { createBoard } from "core/boardCreator";
 import { markCard, setCardsFromGroupAsFounded } from "core/cardMarker";
 import { gameIsOver } from "core/gameOverChecker";
@@ -7,14 +7,14 @@ import {
   hasCardsFromAnotherGroupMarkedAndNotFound,
 } from "core/cardsChecker";
 import { unMarkAllNotFoundAndMarkedCards } from "core/cardUnMarker";
-import { Board, Card } from "types";
+import { Board, Card, Value } from "types";
 
 type UseGameHookReturnType = {
   board: Board;
   boardIsCreated: boolean;
   gameOver: boolean;
   markCard: (card: Card) => void;
-  createGame: (boardSize: number) => void;
+  createGame: (values: Array<Value>) => void;
 };
 
 const useGameHook = (): UseGameHookReturnType => {
@@ -26,8 +26,8 @@ const useGameHook = (): UseGameHookReturnType => {
     [board, boardIsCreated]
   );
 
-  const createGameAction = useCallback((boardSize: number) => {
-    setBoard(createBoard(boardSize));
+  const createGameAction = useCallback((values: Array<Value>) => {
+    setBoard(createBoard(values));
     setBoardIsCreated(true);
   }, []);
 
