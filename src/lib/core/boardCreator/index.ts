@@ -1,3 +1,4 @@
+import shuffleArray from "just-shuffle";
 import { Board, BoardCreator, Value, InvalidValuesError } from "lib/types";
 
 export const createBoard: BoardCreator = (values: Array<Value>): Board => {
@@ -27,5 +28,5 @@ export const createBoard: BoardCreator = (values: Array<Value>): Board => {
     });
   }
 
-  return board;
+  return shuffleArray(board);
 };
