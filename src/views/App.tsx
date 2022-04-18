@@ -8,7 +8,7 @@ const App = (): ReactElement => {
 
   useEffect(() => {
     createGame(COLORS);
-  }, []);
+  }, [createGame]);
 
   return (
     <div>
