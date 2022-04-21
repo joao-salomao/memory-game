@@ -1,4 +1,5 @@
 import { createBoard } from ".";
+import * as shuffleArrayModule from "lib/utils/shuffleArray";
 import { InvalidValuesError } from "lib/types";
 
 describe("Board Creator", () => {
@@ -7,6 +8,11 @@ describe("Board Creator", () => {
   });
 
   it("should create the board correctly", () => {
+    const shuffleArrayMock = jest.fn((v) => v);
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation(shuffleArrayMock);
+
     const result = createBoard(["A", "B"]);
 
     const expectedBoard = [
@@ -16,6 +22,7 @@ describe("Board Creator", () => {
       { id: 4, groupId: 2, isFound: false, isMarked: false, value: "B" },
     ];
 
+    expect(shuffleArrayMock).toBeCalledWith(expectedBoard);
     expect(expectedBoard).toEqual(result);
   });
 });
