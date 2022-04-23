@@ -8,6 +8,8 @@ export type Card = {
   value: Value;
 };
 export type Board = Array<Card>;
+export type EnumeratedColor = { number: number; color: string };
+export type CardWithEnumeratedColor = Card & { value: EnumeratedColor };
 
 // Functions
 export type BoardCreator = (values: Array<Value>) => Board;

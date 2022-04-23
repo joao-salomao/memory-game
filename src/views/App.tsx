@@ -1,13 +1,15 @@
 import { ReactElement, useEffect } from "react";
 import { useGameHook } from "lib/hooks/useGameHook";
-import { COLORS } from "lib/constants";
+import { ENUMERATED_COLORS } from "lib/constants";
+import { CardsBoard } from "views/components/CardsBoard";
+import { ColorCard } from "views/components/Card/ColorCard";
 
 const App = (): ReactElement => {
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
   useEffect(() => {
-    createGame(COLORS);
+    createGame(ENUMERATED_COLORS);
   }, [createGame]);
 
   return (
@@ -24,40 +26,18 @@ const App = (): ReactElement => {
         {gameOver && (
           <>
             <h2>Game Over!!!</h2>
-            <button onClick={() => createGame(COLORS)}>Jogar Novamente</button>
+            <button onClick={() => createGame(ENUMERATED_COLORS)}>
+              Jogar Novamente
+            </button>
           </>
         )}
       </section>
-      <section
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <CardsBoard>
         {boardIsCreated &&
           board.map((card) => (
-            <div
-              key={card.id}
-              style={{
-                height: "150px",
-                width: "150px",
-                margin: "3px",
-                cursor: "pointer",
-                transition: "background-color .500s",
-                backgroundColor:
-                  card.isFound || card.isMarked ? card.value : "gray",
-              }}
-              onClick={() => markCard(card)}
-            >
-              <p>ID: {card.id}</p>
-              <p>Group ID: {card.groupId}</p>
-              <p>Is Marked: {card.isMarked ? "Yes" : "No"}</p>
-              <p>Is Found: {card.isFound ? "Yes" : "No"}</p>
-            </div>
+            <ColorCard key={card.id} card={card} onClick={markCard} />
           ))}
-      </section>
+      </CardsBoard>
     </div>
   );
 };
