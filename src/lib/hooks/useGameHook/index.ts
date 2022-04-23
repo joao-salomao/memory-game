@@ -33,6 +33,28 @@ const useGameHook = (): UseGameHookReturnType => {
     setBoardIsCreated(true);
   }, []);
 
+  const unMarkAllNotFoundAndMarkedCardsAction = useCallback(
+    async (board: Board) => {
+      setIsProcessingAction(true);
+      await awaitFor(() => {
+        setBoard(unMarkAllNotFoundAndMarkedCards(board));
+        setIsProcessingAction(false);
+      }, 500);
+    },
+    []
+  );
+
+  const setCardsFromGroupAsFoundedAction = useCallback(
+    async (groupId: number, board: Board) => {
+      setIsProcessingAction(true);
+      await awaitFor(() => {
+        setBoard(setCardsFromGroupAsFounded(groupId, board));
+        setIsProcessingAction(false);
+      }, 500);
+    },
+    []
+  );
+
   const markCardAction = useCallback(
     async (card: Card) => {
       if (!boardIsCreated || isProcessingAction) return;
@@ -42,25 +64,23 @@ const useGameHook = (): UseGameHookReturnType => {
         setBoard(newBoard);
 
         if (hasCardsFromAnotherGroupMarkedAndNotFound(card.groupId, newBoard)) {
-          setIsProcessingAction(true);
-          await awaitFor(() => {
-            setBoard(unMarkAllNotFoundAndMarkedCards(newBoard));
-            setIsProcessingAction(false);
-          }, 500);
+          await unMarkAllNotFoundAndMarkedCardsAction(newBoard);
         }
 
         if (allCardsFromTheGroupAreMarked(card.groupId, newBoard)) {
-          setIsProcessingAction(true);
-          await awaitFor(() => {
-            setBoard(setCardsFromGroupAsFounded(card.groupId, newBoard));
-            setIsProcessingAction(false);
-          }, 500);
+          await setCardsFromGroupAsFoundedAction(card.groupId, newBoard);
         }
       } catch (error) {
         // TODO
       }
     },
-    [board, boardIsCreated, isProcessingAction]
+    [
+      board,
+      boardIsCreated,
+      isProcessingAction,
+      setCardsFromGroupAsFoundedAction,
+      unMarkAllNotFoundAndMarkedCardsAction,
+    ]
   );
 
   return {
