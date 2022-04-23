@@ -7,6 +7,7 @@ import {
   hasCardsFromAnotherGroupMarkedAndNotFound,
 } from "lib/core/cardsChecker";
 import { unMarkAllNotFoundAndMarkedCards } from "lib/core/cardUnMarker";
+import { awaitFor } from "lib/utils/awaitFor";
 import { Board, Card, Value } from "lib/types";
 
 type UseGameHookReturnType = {
@@ -19,6 +20,7 @@ type UseGameHookReturnType = {
 
 const useGameHook = (): UseGameHookReturnType => {
   const [board, setBoard] = useState<Board>([]);
+  const [isProcessingAction, setIsProcessingAction] = useState<boolean>(false);
   const [boardIsCreated, setBoardIsCreated] = useState<boolean>(false);
 
   const gameOver = useMemo(
@@ -31,34 +33,34 @@ const useGameHook = (): UseGameHookReturnType => {
     setBoardIsCreated(true);
   }, []);
 
-  // 1. If the board is not created, do nothing.
-  // 2. Mark card.
-  // 3. If a card from another group is marked and not found, then set the cards as not marked.
-  // 4. If a card from the same group is marked, then set the cards as founded.
   const markCardAction = useCallback(
-    (card: Card) => {
-      if (!boardIsCreated) return;
+    async (card: Card) => {
+      if (!boardIsCreated || isProcessingAction) return;
 
       try {
         const newBoard = markCard(card, board);
         setBoard(newBoard);
 
         if (hasCardsFromAnotherGroupMarkedAndNotFound(card.groupId, newBoard)) {
-          setTimeout(() => {
+          setIsProcessingAction(true);
+          await awaitFor(() => {
             setBoard(unMarkAllNotFoundAndMarkedCards(newBoard));
+            setIsProcessingAction(false);
           }, 500);
         }
 
         if (allCardsFromTheGroupAreMarked(card.groupId, newBoard)) {
-          setTimeout(() => {
+          setIsProcessingAction(true);
+          await awaitFor(() => {
             setBoard(setCardsFromGroupAsFounded(card.groupId, newBoard));
+            setIsProcessingAction(false);
           }, 500);
         }
       } catch (error) {
         // TODO
       }
     },
-    [board, boardIsCreated]
+    [board, boardIsCreated, isProcessingAction]
   );
 
   return {
