@@ -1,8 +1,15 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, CSSProperties, useEffect } from "react";
 import { useGameHook } from "lib/hooks/useGameHook";
 import { ENUMERATED_COLORS } from "lib/constants";
 import { CardsBoard } from "views/components/CardsBoard";
 import { ColorCard } from "views/components/Card/ColorCard";
+import { Header } from "views/components/Header";
+
+const styles: CSSProperties = {
+  backgroundColor: "#F0F0FF",
+  maxWidth: "700px",
+  margin: "auto",
+};
 
 const App = (): ReactElement => {
   const { board, boardIsCreated, gameOver, createGame, markCard } =
@@ -13,25 +20,11 @@ const App = (): ReactElement => {
   }, [createGame]);
 
   return (
-    <div>
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: "10px",
-        }}
-      >
-        {gameOver && (
-          <>
-            <h2>Game Over!!!</h2>
-            <button onClick={() => createGame(ENUMERATED_COLORS)}>
-              Jogar Novamente
-            </button>
-          </>
-        )}
-      </section>
+    <div style={styles}>
+      <Header
+        gameIsOver={gameOver}
+        onClickCreateNewGame={() => createGame(ENUMERATED_COLORS)}
+      />
       <CardsBoard>
         {boardIsCreated &&
           board.map((card) => (

@@ -10,7 +10,6 @@ const styles: CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   borderRadius: "10px",
-  backgroundColor: "#F0F0FF",
   padding: "50px",
 };
 
