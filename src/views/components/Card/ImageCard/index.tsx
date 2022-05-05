@@ -1,12 +1,14 @@
 import { ReactElement, CSSProperties } from "react";
-import { Card } from "lib/types";
+import { CardWithImage } from "lib/types";
 
-type ColorCardProps = {
-  card: Card;
-  onClick: (card: Card) => void;
+type ImageCardProps = {
+  card: CardWithImage;
+  onClick: (card: CardWithImage) => void;
 };
 
 const styles: CSSProperties = {
+  maxHeight: "100%",
+  maxWidth: "100%",
   height: "150px",
   width: "150px",
   margin: "3px",
@@ -16,16 +18,19 @@ const styles: CSSProperties = {
   alignItems: "center",
   borderRadius: "10px",
   justifyContent: "center",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
   transition: "background-color .500s",
 };
 
-export const ColorCard = ({ card, onClick }: ColorCardProps): ReactElement => {
+export const ImageCard = ({ card, onClick }: ImageCardProps): ReactElement => {
   return (
     <div
       style={{
         ...styles,
-        backgroundColor:
-          card.isFound || card.isMarked ? card.value.color : "gray",
+        backgroundImage:
+          card.isFound || card.isMarked ? `url(${card.value.img})` : undefined,
+        backgroundColor: !card.isFound && !card.isMarked ? "gray" : undefined,
       }}
       onClick={() => onClick(card)}
     >

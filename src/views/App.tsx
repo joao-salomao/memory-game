@@ -1,8 +1,9 @@
 import { ReactElement, CSSProperties, useEffect } from "react";
 import { useGameHook } from "lib/hooks/useGameHook";
-import { ENUMERATED_COLORS } from "lib/constants";
+import { useStagesManagerHook } from "lib/hooks/useStagesManagerHook";
 import { CardsBoard } from "views/components/CardsBoard";
 import { ColorCard } from "views/components/Card/ColorCard";
+import { ImageCard } from "views/components/Card/ImageCard";
 import { Header } from "views/components/Header";
 
 const styles: CSSProperties = {
@@ -15,21 +16,31 @@ const App = (): ReactElement => {
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
+  const { currentStage, nextStage } = useStagesManagerHook();
+
   useEffect(() => {
-    createGame(ENUMERATED_COLORS);
-  }, [createGame]);
+    createGame(currentStage.values);
+  }, [currentStage, createGame]);
 
   return (
     <div style={styles}>
       <Header
         gameIsOver={gameOver}
-        onClickCreateNewGame={() => createGame(ENUMERATED_COLORS)}
+        datasetName={currentStage.name}
+        onClickNextStage={nextStage}
       />
       <CardsBoard>
-        {boardIsCreated &&
-          board.map((card) => (
-            <ColorCard key={card.id} card={card} onClick={markCard} />
-          ))}
+        {
+          // Implement a better solution
+          boardIsCreated &&
+            board.map((card) =>
+              card.value?.color ? (
+                <ColorCard key={card.id} card={card} onClick={markCard} />
+              ) : (
+                <ImageCard key={card.id} card={card} onClick={markCard} />
+              )
+            )
+        }
       </CardsBoard>
     </div>
   );

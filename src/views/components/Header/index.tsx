@@ -1,8 +1,9 @@
 import { ReactElement, CSSProperties } from "react";
 
 type HeaderProps = {
+  datasetName: string;
   gameIsOver: boolean;
-  onClickCreateNewGame: () => void;
+  onClickNextStage: () => void;
 };
 
 const styles: CSSProperties = {
@@ -14,15 +15,17 @@ const styles: CSSProperties = {
 };
 
 export const Header = ({
+  datasetName,
   gameIsOver,
-  onClickCreateNewGame,
+  onClickNextStage,
 }: HeaderProps): ReactElement => (
   <div style={styles}>
     <h1>Memory Game</h1>
+    <h2>{datasetName}</h2>
     {gameIsOver && (
       <>
-        <h2>Game Over!!!</h2>
-        <button onClick={onClickCreateNewGame}>Jogar Novamente</button>
+        <h2>Congratulations!</h2>
+        <button onClick={onClickNextStage}>Play next stage</button>
       </>
     )}
   </div>
