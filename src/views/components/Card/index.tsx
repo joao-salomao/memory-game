@@ -16,7 +16,7 @@ const styles: CSSProperties = {
   alignItems: "center",
   borderRadius: "10px",
   justifyContent: "center",
-  transition: "background-color .500s",
+  transition: ".500s",
 };
 
 export const Card = ({ card, onClick }: ColorCardProps): ReactElement => {

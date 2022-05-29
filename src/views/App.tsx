@@ -11,7 +11,7 @@ const styles: CSSProperties = {
   margin: "auto",
 };
 
-const App = (): ReactElement => {
+export const App = (): ReactElement => {
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
@@ -38,5 +38,3 @@ const App = (): ReactElement => {
     </div>
   );
 };
-
-export { App };
