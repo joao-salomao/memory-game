@@ -13,13 +13,37 @@ describe("Board Creator", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation(shuffleArrayMock);
 
-    const result = createBoard(["A", "B"]);
+    const result = createBoard([{ title: "A" }, { title: "B" }]);
 
     const expectedBoard = [
-      { id: 1, groupId: 1, isFound: false, isMarked: false, value: "A" },
-      { id: 2, groupId: 1, isFound: false, isMarked: false, value: "A" },
-      { id: 3, groupId: 2, isFound: false, isMarked: false, value: "B" },
-      { id: 4, groupId: 2, isFound: false, isMarked: false, value: "B" },
+      {
+        id: 1,
+        groupId: 1,
+        isFound: false,
+        isMarked: false,
+        value: { title: "A" },
+      },
+      {
+        id: 2,
+        groupId: 1,
+        isFound: false,
+        isMarked: false,
+        value: { title: "A" },
+      },
+      {
+        id: 3,
+        groupId: 2,
+        isFound: false,
+        isMarked: false,
+        value: { title: "B" },
+      },
+      {
+        id: 4,
+        groupId: 2,
+        isFound: false,
+        isMarked: false,
+        value: { title: "B" },
+      },
     ];
 
     expect(shuffleArrayMock).toBeCalledWith(expectedBoard);

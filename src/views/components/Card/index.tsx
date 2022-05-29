@@ -1,9 +1,9 @@
 import { ReactElement, CSSProperties } from "react";
-import { Card } from "lib/types";
+import { Card as CardItem } from "lib/types";
 
 type ColorCardProps = {
-  card: Card;
-  onClick: (card: Card) => void;
+  card: CardItem;
+  onClick: (card: CardItem) => void;
 };
 
 const styles: CSSProperties = {
@@ -19,24 +19,26 @@ const styles: CSSProperties = {
   transition: "background-color .500s",
 };
 
-export const ColorCard = ({ card, onClick }: ColorCardProps): ReactElement => {
+export const Card = ({ card, onClick }: ColorCardProps): ReactElement => {
+  const background = card.isFound || card.isMarked ? (card.value.color || `url(${card.value.img})`) : "gray";
+
   return (
     <div
       style={{
         ...styles,
-        backgroundColor:
-          card.isFound || card.isMarked ? card.value.color : "gray",
+        background,
       }}
       onClick={() => onClick(card)}
     >
-      <p
+      {card.value.title && <p
         style={{
           transitionDelay: ".500s",
           display: card.isFound || card.isMarked ? "block" : "none",
         }}
       >
-        {card.value.number}
-      </p>
+        {card.value.title}
+      </p>}
     </div>
   );
 };
+

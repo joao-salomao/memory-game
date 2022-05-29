@@ -2,9 +2,8 @@ import { ReactElement, CSSProperties, useEffect } from "react";
 import { useGameHook } from "lib/hooks/useGameHook";
 import { useStagesManagerHook } from "lib/hooks/useStagesManagerHook";
 import { CardsBoard } from "views/components/CardsBoard";
-import { ColorCard } from "views/components/Card/ColorCard";
-import { ImageCard } from "views/components/Card/ImageCard";
 import { Header } from "views/components/Header";
+import { Card } from "views/components/Card";
 
 const styles: CSSProperties = {
   backgroundColor: "#F0F0FF",
@@ -31,15 +30,9 @@ const App = (): ReactElement => {
       />
       <CardsBoard>
         {
-          // Implement a better solution
-          boardIsCreated &&
-            board.map((card) =>
-              card.value?.color ? (
-                <ColorCard key={card.id} card={card} onClick={markCard} />
-              ) : (
-                <ImageCard key={card.id} card={card} onClick={markCard} />
-              )
-            )
+          boardIsCreated && board.map(
+            (card) => <Card key={card.id} card={card} onClick={markCard} />
+          )
         }
       </CardsBoard>
     </div>
