@@ -8,14 +8,14 @@ import {
 } from "lib/core/cardsChecker";
 import { unMarkAllNotFoundAndMarkedCards } from "lib/core/cardUnMarker";
 import { awaitFor } from "lib/utils/awaitFor";
-import { Board, Card, Value } from "lib/types";
+import { Board, Card, CardInfo } from "lib/types";
 
 type UseGameHookReturnType = {
   board: Board;
   boardIsCreated: boolean;
   gameOver: boolean;
   markCard: (card: Card) => void;
-  createGame: (values: Array<Value>) => void;
+  createGame: (values: Array<CardInfo>) => void;
 };
 
 const useGameHook = (): UseGameHookReturnType => {
@@ -28,7 +28,7 @@ const useGameHook = (): UseGameHookReturnType => {
     [board, boardIsCreated]
   );
 
-  const createGameAction = useCallback((values: Array<Value>) => {
+  const createGameAction = useCallback((values: Array<CardInfo>) => {
     setBoard(createBoard(values));
     setBoardIsCreated(true);
   }, []);

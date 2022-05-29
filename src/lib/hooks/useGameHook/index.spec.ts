@@ -20,7 +20,7 @@ describe("Use Game Hook", () => {
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
-      result.current.createGame([1, 2]);
+      result.current.createGame([{title: "1"}, {title: "2"}]);
     });
 
     expect(result.current.gameOver).toBeTruthy();
@@ -32,7 +32,7 @@ describe("Use Game Hook", () => {
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
-      result.current.createGame([1, 2]);
+      result.current.createGame([{title: "1"}, {title: "2"}]);
     });
 
     expect(result.current.gameOver).toBeFalsy();
@@ -42,7 +42,7 @@ describe("Use Game Hook", () => {
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
-      result.current.createGame([1, 2]);
+      result.current.createGame([{title: "1"}, {title: "2"}]);
     });
 
     expect(result.current.board.length).toBeGreaterThan(0);
@@ -57,7 +57,7 @@ describe("Use Game Hook", () => {
     const { result } = renderHook(() => useGameHook());
 
     act(() => {
-      result.current.createGame([1, 2]);
+      result.current.createGame([{title: "1"}, {title: "2"}]);
       const card = result.current.board[0];
       result.current.markCard(card);
     });

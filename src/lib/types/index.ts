@@ -1,18 +1,24 @@
 // Data structures
-export type Value = any;
 export type Card = {
   id: number;
   groupId: number;
   isFound: boolean;
   isMarked: boolean;
-  value: Value;
+  value: CardInfo;
 };
-export type Board = Array<Card>;
-export type EnumeratedColor = { number: number; color: string };
-export type CardWithEnumeratedColor = Card & { value: EnumeratedColor };
+export type CardInfo = {
+  title?: string;
+  img?: string;
+  color?: string;
+}; 
+export type Board = Card[];
+export type Stage = {
+  name: string;
+  values: CardInfo[];
+};
 
 // Functions
-export type BoardCreator = (values: Array<Value>) => Board;
+export type BoardCreator = (values: Array<CardInfo>) => Board;
 export type CardsCreator = (amountOfGroups: number) => Board;
 export type CardMarker = (cardToMark: Card, board: Board) => Board;
 export type AmountOfCardsGroupCalculator = (size: number) => number;

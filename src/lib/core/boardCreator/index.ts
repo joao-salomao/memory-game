@@ -1,7 +1,7 @@
 import { shuffleArray } from "lib/utils/shuffleArray";
-import { Board, BoardCreator, Value, InvalidValuesError } from "lib/types";
+import { Board, BoardCreator, CardInfo, InvalidValuesError } from "lib/types";
 
-export const createBoard: BoardCreator = (values: Array<Value>): Board => {
+export const createBoard: BoardCreator = (values: Array<CardInfo>): Board => {
   if (values.length === 0)
     throw new InvalidValuesError("The array of values cannot be empty");
 
