@@ -1,9 +1,12 @@
 import { ReactElement, CSSProperties } from "react";
+import { Stage, StageGroup } from 'lib/types'
 
 type HeaderProps = {
-  datasetName: string;
   gameIsOver: boolean;
+  currentStageName: Stage['name'];
+  currentStageGroupName: StageGroup['name'];
   onClickNextStage: () => void;
+  onClickChangeStageGroup: () => void;
 };
 
 const styles: CSSProperties = {
@@ -15,18 +18,28 @@ const styles: CSSProperties = {
 };
 
 export const Header = ({
-  datasetName,
   gameIsOver,
+  currentStageName,
+  currentStageGroupName,
   onClickNextStage,
+  onClickChangeStageGroup,
 }: HeaderProps): ReactElement => (
   <div style={styles}>
-    <h1>Memory Game</h1>
-    <h2>{datasetName}</h2>
-    {gameIsOver && (
-      <>
-        <h2>Congratulations!</h2>
-        <button onClick={onClickNextStage}>Play next stage</button>
-      </>
-    )}
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <h1>Memory Game</h1>
+
+    </div>
+    <div>
+      <h2 style={{ marginBottom: 0 }}>{`${currentStageGroupName}: ${currentStageName}`}</h2>
+      <span style={{ textDecoration: 'underline', cursor: 'pointer' }} onClick={onClickChangeStageGroup}>Change theme</span>
+    </div>
+    {
+      gameIsOver && (
+        <>
+          <h2>Congratulations!</h2>
+          <button onClick={onClickNextStage}>Play next stage</button>
+        </>
+      )
+    }
   </div>
 );
