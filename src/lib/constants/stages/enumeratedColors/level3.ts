@@ -1,7 +1,7 @@
 import { Stage } from "lib/types";
 
 export const Level3: Stage = {
-  name: "Colors - Level 3",
+  name: "Level 3",
   values: [
     {
       title: "1",

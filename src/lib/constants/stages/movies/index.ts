@@ -1,4 +1,7 @@
-import { Stage } from "lib/types";
+import { StageGroup } from "lib/types";
 import { MonstersInc } from "./monstersInc";
 
-export const moviesStages: Stage[] = [MonstersInc];
+export const moviesStages: StageGroup = {
+  name: "Movies",
+  stages: [MonstersInc],
+};

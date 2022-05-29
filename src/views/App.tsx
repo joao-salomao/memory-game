@@ -15,7 +15,7 @@ export const App = (): ReactElement => {
   const { board, boardIsCreated, gameOver, createGame, markCard } =
     useGameHook();
 
-  const { currentStage, nextStage } = useStagesManagerHook();
+  const { currentStage, currentStageGroup, nextStage, nextStageGroup } = useStagesManagerHook();
 
   useEffect(() => {
     createGame(currentStage.values);
@@ -25,8 +25,10 @@ export const App = (): ReactElement => {
     <div style={styles}>
       <Header
         gameIsOver={gameOver}
-        datasetName={currentStage.name}
+        currentStageName={currentStage.name}
+        currentStageGroupName={currentStageGroup.name}
         onClickNextStage={nextStage}
+        onClickChangeStageGroup={nextStageGroup}
       />
       <CardsBoard>
         {
