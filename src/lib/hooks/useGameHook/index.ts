@@ -18,7 +18,7 @@ type UseGameHookReturnType = {
   createGame: (values: Array<CardInfo>) => void;
 };
 
-const useGameHook = (): UseGameHookReturnType => {
+export const useGameHook = (): UseGameHookReturnType => {
   const [board, setBoard] = useState<Board>([]);
   const [isProcessingAction, setIsProcessingAction] = useState<boolean>(false);
   const [boardIsCreated, setBoardIsCreated] = useState<boolean>(false);
@@ -91,5 +91,3 @@ const useGameHook = (): UseGameHookReturnType => {
     createGame: createGameAction,
   };
 };
-
-export { useGameHook };

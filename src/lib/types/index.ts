@@ -10,11 +10,15 @@ export type CardInfo = {
   title?: string;
   img?: string;
   color?: string;
-}; 
+};
 export type Board = Card[];
 export type Stage = {
   name: string;
   values: CardInfo[];
+};
+export type StageGroup = {
+  name: string;
+  stages: Stage[];
 };
 
 // Functions
