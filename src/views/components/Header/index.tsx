@@ -26,7 +26,7 @@ export const Header = ({
 }: HeaderProps): ReactElement => (
   <div style={styles}>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <h1>Memory Game</h1>
+      <h1>Memory Game - by João Salomão</h1>
 
     </div>
     <div>
